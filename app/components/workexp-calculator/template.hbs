@@ -1,0 +1,54 @@
+<h2>Calculate work experience</h2>
+
+<form id="ExpCalculator">
+    <p>
+      <label>Company name</label>
+      <div class="{{if hasError 'has-error'}} form-group">
+      {{input type="text" value=userExpData.companyName placeholder="Company name" focus-out="focusOutCompanyName" }}
+      </div>
+      {{#if companyNameCheck}}{{#if companyNameValidStatus }}{{else}}{{companyNameErrMsg}}{{/if}}{{/if}}
+    </p>
+    <p>
+      <label>Exp Start date</label>
+      {{input maxlength=2  value=userExpData.startDate placeholder="DD"}}
+      {{input maxlength=2  value=userExpData.startMonth placeholder="MM"}}
+      {{input maxlength=4  value=userExpData.startYear placeholder="YYYY" focus-out="focusOutStartDate"}}
+      <div>
+        {{#if startDateFieldCheck}}{{#if fullstartDateFieldisValid }}{{else}}{{startDateFieldErrMsg}}{{/if}}{{/if}}
+      </div>
+    </p>
+    <p>
+      <label>Exp Start date</label>
+      {{input maxlength=2 value=userExpData.endDate placeholder="DD"}}
+      {{input maxlength=2 value=userExpData.endMonth placeholder="MM"}}
+      {{input maxlength=4 value=userExpData.endYear placeholder="YYYY" focus-out="focusOutEndDate"}}
+      <div>
+        {{#if endDateFieldCheck}}{{#if fullendDateFieldisValid }}{{else}}{{endDateFieldErrMsg}}{{/if}}{{/if}}
+      </div>
+    </p>
+    <p>
+      {{input type="hidden" value=userExpData.checkFlag }}
+    </p>
+
+    <p>
+      {{#if formButtonCheck}}
+        <button {{action "calculate" userExpData}}>Add Data</button>
+      {{else}}
+        <button disabled>Add Data</button>
+      {{/if}}
+    </p>
+</form>
+
+
+<table>
+  {{#each expDataList as |item| }}
+  <tr>
+    <td>{{item.companyNameData}}</td>
+    <td>{{item.startDateData}}</td>
+    <td>{{item.endDateData}}</td>
+    <td>{{item.duration}}</td>
+  </tr>
+  {{/each}}
+</table>
+
+{{yield}}
